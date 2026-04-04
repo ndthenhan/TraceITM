@@ -1,0 +1,66 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Nucleo-F439ZI (Stable OpenOCD + ITM)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/Debug/${workspaceFolderBasename}.elf",
+            "device": "STM32F439ZI",
+            //"interface": "swd", // default is SWD, can be omitted
+            //"serverpath": "D:/STM32/xpacks/@xpack-dev-tools/openocd/.content/bin/openocd.exe", // if path not set
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            //"gdbTarget": "localhost:3333", // default is localhost:3333, can be omitted
+            "svdFile": "${workspaceFolder}/STM32F439.svd",
+            "runToEntryPoint": "main",
+            //"gdbTarget": "127.0.0.1:50001",
+            // "connectUnderReset" is now often handled via serverArgs above, 
+            // but if you want the checkbox version, try:
+            //"overrideResetCommands": [
+            //    "monitor reset halt"
+            //],
+            "showDevDebugOutput": "raw",
+            "preLaunchCommands": [
+                "monitor sleep 200",
+                "monitor reset halt",
+            ],
+            "postLaunchCommands": [
+                "monitor reset halt",
+                //"monitor tpiu config internal swv_file 168000000 2000000",
+                //"monitor itm ports on"
+                //"monitor sleep 100",
+                //"monitor tpiu config internal - uart off 168000000 2000000",
+                "monitor itm port 0  on",
+                "monitor itm port 1  on",
+                //"monitor mww 0xE0000E00 1",
+                //"monitor mww 0xE0042004 0x20"
+                //"resume"
+                "monitor reset run"
+            ],
+            "swoConfig": {
+                "enabled": true,
+                "cpuFrequency": 168000000,
+                "swoFrequency": 2000000,
+                "source": "probe",
+                "decoders": [
+                    {
+                        "type": "console",
+                        "port": 0,
+                        "label": "ITM"
+                    },
+                    {
+                        "type": "binary",
+                        "port": 1,
+                        "label": "VAR",
+                        "encoding": "unsigned"
+                    }
+                ]
+            }
+        }
+    ]
+}
