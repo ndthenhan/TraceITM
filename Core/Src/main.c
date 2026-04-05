@@ -25,8 +25,11 @@
 #include "printITM.h"
 #include "random.h"
 #include "stm32f4xx.h"
+#include "stm32f4xx_hal.h"
 #include <complex.h>
+#include <math.h>
 #include <stdio.h>
+
 
 /* USER CODE END Includes */
 
@@ -49,7 +52,7 @@
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-
+double y =0.0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -149,10 +152,23 @@ int main(void) {
 
    */
 
-  int n = 0;
-  // double m=0.0;
+  // int n = 0;
+  //  double m=0.0;
+  int i = 0;
+
   while (1) {
-    HAL_GPIO_WritePin(GPIOB, LD1_Pin, GPIO_PIN_SET);
+     y = sin(2 * M_PI * i / 1000.0);
+    //float yf = (float)y;
+
+    //ITM_SendFloat(0, i);
+printITMport( 0, "number: %d\r\n", i);
+    i = (i + 1) % 1000;
+    //for (volatile int d = 0; d < 2000; d++);
+    HAL_Delay(100)  ; // small delay
+
+    // stream y here
+
+    /* HAL_GPIO_WritePin(GPIOB, LD1_Pin, GPIO_PIN_SET);
     HAL_Delay(100);
     HAL_GPIO_WritePin(GPIOB, LD1_Pin, GPIO_PIN_RESET);
     HAL_Delay(100);
@@ -164,33 +180,20 @@ int main(void) {
     HAL_Delay(100);
     HAL_GPIO_WritePin(GPIOB, LD3_Pin, GPIO_PIN_RESET);
     HAL_Delay(100);
-    n++;
-
-    // printITMport0("Hello, World! ter: %lu \r\n",ter);
-    printITMport(0, "Random: %d\r\n", n);
-
-    // printITMport1("port 1Hello, World! ter: %lu \r\n",ter);
-    // printITMport1("port 1Random: %d\r\n", n);
-
-    // ITM->PORT[1].u8 = (uint8_t)(0x55); // Send lower byte of n to port 1
-
-    printITMport1_hex();
-
-    printITMport(0, "Mean: %f\r\n", 9.5);
-    printrandom(n);
-    printITMport(0, "Hello, World! %d\r\n", n);
-    if (n == 9) {
-      n = 0;
-    }
-    printITMport(0, "port 1 test:\r\n");
+ */
+    // n++;
     /*
-          ITM->PORT[1].u8 = 0x11;
-    ITM->PORT[1].u8 = 0x22;
-    ITM->PORT[1].u8 = 0x33;
-    ITM->PORT[1].u8 = 0x44;
+        printITMport(0, "Random: %d\r\n", n);
+        printITMport1_hex();
+        printITMport(0, "Mean: %f\r\n", 9.5);
+        printrandom(n);
+        printITMport(0, "Hello, World! %d\r\n", n);
+        if (n == 9) {
+          n = 0;
+        }
+        printITMport(0, "port 1 test:\r\n");
+        printITMport(0, "port 1 test:\r\n"); */
 
-     */
-    printITMport(0, "port 1 test:\r\n");
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

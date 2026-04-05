@@ -6,6 +6,12 @@
             "type": "cortex-debug",
             "request": "launch",
             "servertype": "openocd",
+            
+            //"liveWatch": {
+            //    "enabled": true,
+            //    "samplesPerSecond": 10
+            //},
+            
             "cwd": "${workspaceFolder}",
             "executable": "${workspaceFolder}/build/Debug/${workspaceFolderBasename}.elf",
             "device": "STM32F439ZI",
@@ -26,21 +32,21 @@
             //],
             "showDevDebugOutput": "raw",
             "preLaunchCommands": [
-                "monitor sleep 200",
-                "monitor reset halt",
+                //"monitor sleep 200",
+                //"monitor reset halt"
             ],
             "postLaunchCommands": [
-                "monitor reset halt",
+                //"monitor reset halt",
                 //"monitor tpiu config internal swv_file 168000000 2000000",
                 //"monitor itm ports on"
                 //"monitor sleep 100",
                 //"monitor tpiu config internal - uart off 168000000 2000000",
-                "monitor itm port 0  on",
-                "monitor itm port 1  on",
+                //"monitor itm port 0  on",
+                //"monitor itm port 1  on",
                 //"monitor mww 0xE0000E00 1",
                 //"monitor mww 0xE0042004 0x20"
                 //"resume"
-                "monitor reset run"
+                //"monitor reset run"
             ],
             "swoConfig": {
                 "enabled": true,
@@ -48,16 +54,17 @@
                 "swoFrequency": 2000000,
                 "source": "probe",
                 "decoders": [
+                    
                     {
                         "type": "console",
+                        //format": "graph",
                         "port": 0,
-                        "label": "ITM"
-                    },
-                    {
-                        "type": "binary",
-                        "port": 1,
                         "label": "VAR",
-                        "encoding": "unsigned"
+                        //"graphId": "yf",
+                        //"encoding": "",
+                        //"scale": 1,
+                        //"logFd": -1,
+                        //"logfile": "${workspaceFolder}/var_port0.log"
                     }
                 ]
             }
