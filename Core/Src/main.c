@@ -157,11 +157,11 @@ int main(void) {
   int i = 0;
 
   while (1) {
-     y = sin(2 * M_PI * i / 1000.0);
-    //float yf = (float)y;
+     y = 100.0 * sin(2 * M_PI * i / 1000.0);
+    float yf = (float)y;
 
-    //ITM_SendFloat(0, i);
-printITMport( 0, "number: %d\r\n", i);
+    ITM_SendFloat(0, yf);
+//printITMport( 0, "number: %d\r\n", i);
     i = (i + 1) % 1000;
     //for (volatile int d = 0; d < 2000; d++);
     HAL_Delay(100)  ; // small delay

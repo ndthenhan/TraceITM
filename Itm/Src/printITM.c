@@ -55,10 +55,12 @@ void ITM_SendFloat(uint8_t port, float value) {
   while (ITM->PORT[port].u32 == 0)
     ; // wait until ready
   ITM->PORT[port].u32 = raw;
-  /* ITM->PORT[port].u8 = (raw >> 0) & 0xFF;
+  /* 
+  ITM->PORT[port].u8 = (raw >> 0) & 0xFF;
   ITM->PORT[port].u8 = (raw >> 8) & 0xFF;
   ITM->PORT[port].u8 = (raw >> 16) & 0xFF;
-  ITM->PORT[port].u8 = (raw >> 24) & 0xFF; */
+  ITM->PORT[port].u8 = (raw >> 24) & 0xFF;
+   */
 }
 
 /* int _write(int file, char *ptr, int len)

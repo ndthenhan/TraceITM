@@ -6,12 +6,10 @@
             "type": "cortex-debug",
             "request": "launch",
             "servertype": "openocd",
-            
             //"liveWatch": {
             //    "enabled": true,
             //    "samplesPerSecond": 10
             //},
-            
             "cwd": "${workspaceFolder}",
             "executable": "${workspaceFolder}/build/Debug/${workspaceFolderBasename}.elf",
             "device": "STM32F439ZI",
@@ -37,7 +35,7 @@
             ],
             "postLaunchCommands": [
                 //"monitor reset halt",
-                "monitor tpiu config internal swv_file 168000000 2000000",
+                //"monitor tpiu config internal swv_file 168000000 2000000",
                 //"monitor itm ports on"
                 //"monitor sleep 100",
                 //"monitor tpiu config internal - uart off 168000000 2000000",
@@ -46,22 +44,24 @@
                 //"monitor mww 0xE0000E00 1",
                 //"monitor mww 0xE0042004 0x20"
                 //"resume"
+                "monitor stm32f4x.tpiu configure -protocol uart -traceclk 168000000 -output :22888",
+                "monitor stm32f4x.tpiu enable",
+                "monitor itm port 0 on",
                 //"monitor reset run"
             ],
             "swoConfig": {
                 "enabled": true,
                 "cpuFrequency": 168000000,
-                "swoFrequency": 2000000,
+                "swoFrequency": 1800000,
                 "source": "probe",
                 "decoders": [
-                    
                     {
-                        "type": "console",
+                        "type": "graph",
                         //format": "graph",
                         "port": 0,
                         "label": "VAR",
-                        //"graphId": "yf",
-                        //"encoding": "",
+                        "graphId": "yf",
+                        //"encoding": "float",
                         //"scale": 1,
                         //"logFd": -1,
                         //"logfile": "${workspaceFolder}/var_port0.log"
