@@ -52,12 +52,13 @@ void printITMport1(const char *fmt, ...) {
     }
 }
 
-void printITMport1_hex(void) {
+void printITMport1_hex(uint8_t n) {
 //ITM->PORT[1].u8 = (uint8_t)(0x55);
 uint32_t timeout = 5000;
             while (ITM->PORT[1].u32 == 0 && timeout--);
 if (timeout > 0) {
-                ITM->PORT[1].u8 =  0x50;
+                ITM->PORT[1].u8 =   n & 0x0F; // Send lower byte of n to port 1
+                ITM->PORT[1].u8 =   n & 0xF0; // Send lower byte of n to port 1
             }
 /*             
             

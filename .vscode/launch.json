@@ -44,6 +44,7 @@
             ],
             "swoConfig": {
                 "enabled": true,
+                
                 "cpuFrequency": 168000000,
                 "swoFrequency": 2000000,
                 "source": "probe",
@@ -54,13 +55,32 @@
                         "label": "ITM"
                     },
                     {
-                        "type": "binary",
+                        "type": "graph",
                         "port": 1,
+                        "graphId": "variable-1",
                         "label": "VAR",
                         "encoding": "unsigned"
                     }
                 ]
-            }
+            },
+            "graphConfig": [
+                {
+                    //"annotate": false,
+                    "type": "realtime",
+                    "label": "My Live Data",
+                    "minimum": 0,
+                    "maximum": 10,
+                    "timespan": 10,
+                    "plots": [
+                        {
+                            "graphId": "variable-1",
+                            "label": "VAR",
+                            
+                            "color": "#ff0000"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

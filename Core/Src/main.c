@@ -26,6 +26,7 @@
 #include "random.h"
 #include "stm32f4xx.h"
 #include <complex.h>
+#include <stdint.h>
 #include <stdio.h>
 
 /* USER CODE END Includes */
@@ -149,7 +150,7 @@ int main(void) {
 
    */
 
-  int n = 0;
+  uint8_t n = 0;
   // double m=0.0;
   while (1) {
     HAL_GPIO_WritePin(GPIOB, LD1_Pin, GPIO_PIN_SET);
@@ -174,15 +175,17 @@ int main(void) {
 
     // ITM->PORT[1].u8 = (uint8_t)(0x55); // Send lower byte of n to port 1
 
-    printITMport1_hex();
+    
 
     printITMport(0, "Mean: %f\r\n", 9.5);
-    printrandom(n);
+    //printrandom(n);
     printITMport(0, "Hello, World! %d\r\n", n);
     if (n == 9) {
       n = 0;
     }
     printITMport(0, "port 1 test:\r\n");
+
+    printITMport1_hex(n);
     /*
           ITM->PORT[1].u8 = 0x11;
     ITM->PORT[1].u8 = 0x22;
