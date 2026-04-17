@@ -30,24 +30,24 @@
             //],
             "showDevDebugOutput": "raw",
             "preLaunchCommands": [
-                //"monitor sleep 200",
-                //"monitor reset halt"
+                "monitor sleep 200",
+                "monitor reset halt"
             ],
             "postLaunchCommands": [
-                //"monitor reset halt",
+                "monitor reset halt",
                 //"monitor tpiu config internal swv_file 168000000 2000000",
                 //"monitor itm ports on"
                 //"monitor sleep 100",
                 //"monitor tpiu config internal - uart off 168000000 2000000",
-                //"monitor itm port 0  on",
-                //"monitor itm port 1  on",
+                "monitor itm port 0  on",
+                "monitor itm port 1  on",
                 //"monitor mww 0xE0000E00 1",
                 //"monitor mww 0xE0042004 0x20"
                 //"resume"
-                "monitor stm32f4x.tpiu configure -protocol uart -traceclk 168000000 -output :22888",
-                "monitor stm32f4x.tpiu enable",
-                "monitor itm port 0 on",
-                //"monitor reset run"
+                //"monitor stm32f4x.tpiu configure -protocol uart -traceclk 168000000 -output :22888",
+                //"monitor stm32f4x.tpiu enable",
+                //"monitor itm port 0 on",
+                "monitor reset run"
             ],
             "swoConfig": {
                 "enabled": true,
@@ -56,18 +56,41 @@
                 "source": "probe",
                 "decoders": [
                     {
-                        "type": "graph",
-                        //format": "graph",
+                        "type": "console",
                         "port": 0,
+                        "label": "ITM"
+                    },
+                    {
+                        "type": "graph",
+                        "port": 1,
                         "label": "VAR",
-                        "graphId": "yf",
-                        //"encoding": "float",
+                        "graphId": "sine",
+                        "encoding": "float",
                         //"scale": 1,
                         //"logFd": -1,
                         //"logfile": "${workspaceFolder}/var_port0.log"
-                    }
+                    },
+                    
                 ]
-            }
+            },
+            "graphConfig": [
+                {
+                    //"annotate": false,
+                    "type": "realtime",
+                    "label": "My Live Data",
+                    "minimum": -100.0,
+                    "maximum": 100.0,
+                    "timespan": 50,
+                    "plots": [
+                        {
+                            "graphId": "sine",
+                            "label": "VAR",
+                            
+                            "color": "#ff0000"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
