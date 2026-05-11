@@ -5,7 +5,7 @@
             "name": "Nucleo-F439ZI (Stable OpenOCD + ITM)",
             "type": "cortex-debug",
             "request": "launch",
-            "servertype": "openocd",
+            "servertype": "jlink",
             //"liveWatch": {
             //    "enabled": true,
             //    "samplesPerSecond": 10
@@ -13,12 +13,14 @@
             "cwd": "${workspaceFolder}",
             "executable": "${workspaceFolder}/build/Debug/${workspaceFolderBasename}.elf",
             "device": "STM32F439ZI",
-            //"interface": "swd", // default is SWD, can be omitted
+            "interface": "swd", // default is SWD, can be omitted
             //"serverpath": "D:/STM32/xpacks/@xpack-dev-tools/openocd/.content/bin/openocd.exe", // if path not set
-            "configFiles": [
-                "interface/stlink.cfg",
-                "target/stm32f4x.cfg"
-            ],
+            /* UNCOMMENT AND FIX THE PATH BELOW to fix your ENOENT error */
+            // "serverpath": "C:/Program Files/SEGGER/JLink/JLinkGDBServerCL.exe",
+            // "configFiles": [
+            //     "interface/stlink.cfg",
+            //     "target/stm32f4x.cfg"
+            // ],
             //"gdbTarget": "localhost:3333", // default is localhost:3333, can be omitted
             "svdFile": "${workspaceFolder}/STM32F439.svd",
             "runToEntryPoint": "main",
@@ -30,67 +32,53 @@
             //],
             "showDevDebugOutput": "raw",
             "preLaunchCommands": [
-                "monitor sleep 200",
-                "monitor reset halt"
+                //"monitor sleep 200",
+                "monitor reset "
+            ],
+            "overrideLaunchCommands": [
+                "monitor reset",
+                "load",
+                // "monitor SWO EnableTarget 168000000 4500000 0xFFFFFFFF 0",
+                // "monitor SWO Start"
             ],
             "postLaunchCommands": [
-                "monitor reset halt",
+                //"monitor reset",
+                /* J-Link handles ITM/SWO differently than OpenOCD */
+                //"monitor SWO EnableTarget 168000000 4500000 1 0",
+                //"monitor itm 1 0", // Ensure port 0 is mask-enabled
+                "monitor SWO EnableTarget 168000000 4500000 0xFFFFFFFF 0",
+                "monitor SWO Start",
+                //"continue",
+                //"monitor SWO Start",
+                "monitor reset",
                 //"monitor tpiu config internal swv_file 168000000 2000000",
                 //"monitor itm ports on"
                 //"monitor sleep 100",
                 //"monitor tpiu config internal - uart off 168000000 2000000",
-                "monitor itm port 0  on",
-                "monitor itm port 1  on",
+                //"monitor itm 1 0"
+                //"monitor itm port 1  on",
                 //"monitor mww 0xE0000E00 1",
                 //"monitor mww 0xE0042004 0x20"
                 //"resume"
                 //"monitor stm32f4x.tpiu configure -protocol uart -traceclk 168000000 -output :22888",
                 //"monitor stm32f4x.tpiu enable",
                 //"monitor itm port 0 on",
-                "monitor reset run"
+                //"monitor reset run"
             ],
             "swoConfig": {
                 "enabled": true,
                 "cpuFrequency": 168000000,
-                "swoFrequency": 1800000,
+                "swoFrequency": 0,
                 "source": "probe",
                 "decoders": [
                     {
                         "type": "console",
                         "port": 0,
-                        "label": "ITM"
-                    },
-                    {
-                        "type": "graph",
-                        "port": 1,
-                        "label": "VAR",
-                        "graphId": "sine",
-                        "encoding": "float",
-                        //"scale": 1,
-                        //"logFd": -1,
-                        //"logfile": "${workspaceFolder}/var_port0.log"
-                    },
-                    
+                        "label": "ITM",
+                        //"encoding": "utf8"
+                    }
                 ]
-            },
-            "graphConfig": [
-                {
-                    //"annotate": false,
-                    "type": "realtime",
-                    "label": "My Live Data",
-                    "minimum": -100.0,
-                    "maximum": 100.0,
-                    "timespan": 50,
-                    "plots": [
-                        {
-                            "graphId": "sine",
-                            "label": "VAR",
-                            
-                            "color": "#ff0000"
-                        }
-                    ]
-                }
-            ]
+            }
         }
     ]
 }

@@ -127,7 +127,7 @@ int main(void) {
         ITM_Init();
   } */
   ITM_Init();
-
+HAL_Delay(200); // small delay to ensure ITM is ready before sending data
   /*
   volatile uint32_t ter = ITM->TER;   // check in debugger
   for (int i = 0; i < 20; i++) {
@@ -156,11 +156,11 @@ int main(void) {
   int i = 0;
 
   while (1) {
-    double y = 100.0 * sin(2 * M_PI * i / 1000.0);
-    float yf = (float)y;
+    //double y = 100.0 * sin(2 * M_PI * i / 1000.0);
+    //float yf = (float)y;
 
-    ITM_SendFloat(1, yf);
-    printITMport(0, "number: %d\r\n", i);
+    //ITM_SendFloat(1, yf);
+    printITMport(0, "number: %d \r\n", i);
     i = (i + 1) % 1000;
     // for (volatile int d = 0; d < 2000; d++);
     HAL_Delay(80); // small delay
