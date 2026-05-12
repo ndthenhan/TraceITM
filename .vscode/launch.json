@@ -68,14 +68,24 @@
             "swoConfig": {
                 "enabled": true,
                 "cpuFrequency": 168000000,
-                "swoFrequency": 0,
+                "swoFrequency": 1800000,
                 "source": "probe",
                 "decoders": [
                     {
                         "type": "console",
                         "port": 0,
-                        "label": "ITM",
-                        //"encoding": "utf8"
+                        "label": "ITM"
+                    }
+                ]
+            },
+            "rttConfig": {
+                "enabled": true,
+                "address": "0x20000240", // Update this to match your RTT control block address
+                "decoders": [
+                    {
+                        "label": "RTT Terminal",
+                        "port": 0,
+                        "type": "console"
                     }
                 ]
             }

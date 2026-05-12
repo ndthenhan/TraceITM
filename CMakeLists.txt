@@ -40,6 +40,8 @@ add_subdirectory(cmake/stm32cubemx)
 add_subdirectory(Itm)
 # Add randomapp modules
 add_subdirectory(Randomapp)
+# Add RTT modules
+add_subdirectory(RTT)
 
 
 
@@ -77,6 +79,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     #stm32cubemx
     itmprintf
     randomapp
+    rtt
     m
     # Add user defined libraries
     

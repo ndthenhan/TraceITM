@@ -1,0 +1,2 @@
+20260512_2014: Backed up folders for TraceITM
+20260512_2014: Restored folders deleted by CubeMX
