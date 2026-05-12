@@ -255,6 +255,10 @@ static const unsigned char _aTerminalId[16] = { '0', '1', '2', '3', '4', '5', '6
 //
 // RTT Control Block and allocate buffers for channel 0
 //
+// In SEGGER_RTT.c
+__attribute__((section(".rtt_section")))
+SEGGER_RTT_CB _SEGGER_RTT;
+
 #if SEGGER_RTT_CPU_CACHE_LINE_SIZE
   #if ((defined __GNUC__) || (defined __clang__))
     SEGGER_RTT_CB _SEGGER_RTT                                                             __attribute__ ((aligned (SEGGER_RTT_CPU_CACHE_LINE_SIZE)));

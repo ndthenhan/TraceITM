@@ -168,6 +168,14 @@ SECTIONS
     _eccmram = .;       /* create a global symbol at ccmram end */
   } >CCMRAM AT> FLASH
 
+  /* Add this block here */
+  .rtt (NOLOAD) :
+  {
+    . = ALIGN(4);
+    KEEP(*(.rtt_section))
+    . = ALIGN(4);
+  } > RAM
+
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);
 

@@ -15,7 +15,7 @@ TIMESTAMP=$(date +%Y%m%d_%H%M)
 
 # Add any new folders here, separated by a space
 #FOLDERS=("Utilities" "Drivers/Custom" "Docs")
-FOLDERS=("Utilities" )
+FOLDERS=("Utilities" "Itm" "Randomapp" "RTT")
 mkdir -p "$SAFE_HOUSE"
 
 for FOLDER in "${FOLDERS[@]}"; do

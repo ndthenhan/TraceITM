@@ -46,8 +46,8 @@
                 /* J-Link handles ITM/SWO differently than OpenOCD */
                 //"monitor SWO EnableTarget 168000000 4500000 1 0",
                 //"monitor itm 1 0", // Ensure port 0 is mask-enabled
-                "monitor SWO EnableTarget 168000000 4500000 0xFFFFFFFF 0",
-                "monitor SWO Start",
+                //"monitor SWO EnableTarget 168000000 4500000 0xFFFFFFFF 0",
+               // "monitor SWO Start",
                 //"continue",
                 //"monitor SWO Start",
                 "monitor reset",
@@ -80,7 +80,7 @@
             },
             "rttConfig": {
                 "enabled": true,
-                "address": "0x20000240", // Update this to match your RTT control block address
+                "address": "0x20000000", // Update this to match your RTT control block address
                 "decoders": [
                     {
                         "label": "RTT Terminal",
